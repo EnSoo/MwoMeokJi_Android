@@ -25,21 +25,21 @@ class MainActivity : AppCompatActivity() {
                     binding.containerFragment.visibility = View.GONE
                     binding.wv.visibility=View.VISIBLE
                     // 라우팅 /home 이동
-                    Toast.makeText(this, "홈", Toast.LENGTH_SHORT).show()
+                    binding.wv.loadUrl("javascript:bnvRoute('home')")
                 }
                 R.id.menu_map -> {
                     // 'map' 메뉴 선택 시 containerFragment를 숨김
                     binding.containerFragment.visibility = View.GONE
                     binding.wv.visibility=View.VISIBLE
                     // 라우팅 /map 이동
-                    Toast.makeText(this, "지도", Toast.LENGTH_SHORT).show()
+                    binding.wv.loadUrl("javascript:bnvRoute('map')")
                 }
                 R.id.menu_recipe -> {
                     // '레시피' 메뉴 선택 시 containerFragment를 숨김
                     binding.containerFragment.visibility = View.GONE
                     binding.wv.visibility=View.VISIBLE
                     // 라우팅 /레시피 이동
-                    Toast.makeText(this, "레시피", Toast.LENGTH_SHORT).show()
+                    binding.wv.loadUrl("javascript:bnvRoute('recipe')")
                 }
                 R.id.menu_mypage -> {
                     // 'My Page' 메뉴 선택 시 containerFragment를 표시
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         binding.wv.webChromeClient= WebChromeClient()
 
         //웹뷰가 보여줄 웹페이지를 로딩하기
-        binding.wv.loadUrl("https://www.naver.com")
+        binding.wv.loadUrl("http://backtrackrt5.dothome.co.kr/react/mwomeokji")
 
     }
 }
