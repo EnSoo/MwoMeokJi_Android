@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                     binding.wv.loadUrl("javascript:bnvRoute('map')")
                 }
                 R.id.menu_recipe -> {
-                    // '레시피' 메뉴 선택 시 containerFragment를 숨김
+                    // '레시피' 메뉴 선택 시 containerFragment를 숨기기
                     binding.containerFragment.visibility = View.GONE
                     binding.wv.visibility=View.VISIBLE
                     // 라우팅 /레시피 이동
