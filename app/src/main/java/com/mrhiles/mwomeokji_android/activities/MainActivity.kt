@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         binding.wv.webChromeClient= WebChromeClient()
 
         //웹뷰가 보여줄 웹페이지를 로딩하기
-        binding.wv.loadUrl("https://52.79.98.24/")
+        binding.wv.loadUrl("http://52.79.98.24/")
 
     }
 }
