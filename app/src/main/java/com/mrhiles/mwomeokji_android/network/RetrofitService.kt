@@ -1,28 +1,43 @@
 package com.mrhiles.mwomeokji_android.network
 
+import com.mrhiles.mwomeokji_android.G
+import com.mrhiles.mwomeokji_android.UserLoginData
+import com.mrhiles.mwomeokji_android.UserLoginResponse
+import com.mrhiles.mwomeokji_android.UserSignupData
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.PartMap
 import retrofit2.http.Query
 
 interface RetrofitService {
-//
-//    //로그인
-//    @POST("/sign/login.php")
-//    fun login(@Body loginData: LoginData) : Call<LoginResponse> // 4200 회원, 4204 회원 아님,
-//    // 4203 이메일 로그인 정보 틀림, 1200 간편 회원 추가 성공, 1201 간편회원 추가 실패
-//
-//    //회원가입(이메일)
-//    @POST("/sign/signup.php")
-//    fun singUp(@Body signUpData: SignUpData) : Call<String> // 1200 회원 추가 성공, 1201 회원 추가 실패, 4330 닉네임 또는 이메일 중복
-//
-//    //회원가입(간편회원)
-//    @POST("/sign/easy_signup.php")
-//    fun easySignUp(@Body signUpData: EasySignUpData) : Call<String> // 1200 회원 추가 성공, 1201 회원 추가 실패, 4330 닉네임 또는 이메일 중복
-//
-//    //회원가입 시 닉네임 중복체크
-//    @GET("/sign/email_nickname_dupli_check.php")
-//    fun dupliCheck(@Query("nickname") nickname:String) : Call<String> // 4320 닉네임 중복, 4300 중복 x
+
+    // 1. POST 방식으로 사용자의 정보 서버에 전달
+    //@Body로 보낸 json문자열을 $_POST라는 배열에 자동 저장되지 않음. Ex68번. 04Retrofit/bbb.php 참고
+    @POST("/backend/signup.php")
+    fun userDataToServer(@Body userData: UserSignupData): Call<String>
+
+    @GET("/backend/userTest.php")
+    fun userCheckNickname(@Query("nickname") ChecknickName: String): Call<String>
+
+    @GET("/backend/userTest.php")
+    fun userCheckEmail(@Query("email") CheckEmail: String): Call<String>
+
+    @POST("/backend/userLogin.php")
+    fun userLoginToServer(@Body userData: UserLoginData): Call<UserLoginResponse>
+
+    @POST("/backend/userDelete.php")
+    fun userDelete(@Body userData: UserLoginData): Call<String>
+
+    // 유저 정보 변경
+    @Multipart
+    @POST("/backend/userChangeProfile.php")
+    fun userChangeProfile(@PartMap dataPart: Map<String, String>, @Part filePart: MultipartBody.Part? ) : Call<UserLoginResponse>
+
+
 
 }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.postDelayed
 import com.bumptech.glide.Glide
 import com.mrhiles.mwomeokji_android.G
 import com.mrhiles.mwomeokji_android.R
