@@ -107,6 +107,7 @@ class SignActivity : AppCompatActivity() {
             retrofitService.userDataToServer(userData).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     var s = response.body().toString()
+                    Log.d("ddd","${s}")
                     //Toast.makeText(this@SignupActivity, s, Toast.LENGTH_SHORT).show()
                     if (s.trim().equals("회원가입이 완료되었습니다.")) finish()
 

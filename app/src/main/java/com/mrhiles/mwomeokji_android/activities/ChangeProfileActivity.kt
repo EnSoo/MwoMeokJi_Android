@@ -145,7 +145,6 @@ class ChangeProfileActivity : AppCompatActivity() {
 
                     userResponse?.user?.apply {
                         G.userAccount?.nickname = userResponse.user.nickname
-                        G.userAccount?.password = userResponse.user.password
                         G.userAccount?.imgfile = userResponse.user.imgfile
                     }
 
@@ -193,7 +192,7 @@ class ChangeProfileActivity : AppCompatActivity() {
         // 작성자를 통해 데이터를 작성
         editor.putString("imgfile", G.userAccount?.imgfile)
         editor.putString("nickname", G.userAccount?.nickname)
-        editor.putString("password", G.userAccount?.password)
+//        editor.putString("password", G.userAccount?.password)
         editor.putString("email",G.userAccount?.email)
         editor.apply()
     }

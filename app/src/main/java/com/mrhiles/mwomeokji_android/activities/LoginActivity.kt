@@ -3,11 +3,13 @@ package com.mrhiles.mwomeokji_android.activities
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.mrhiles.mwomeokji_android.G
 import com.mrhiles.mwomeokji_android.L
+import com.mrhiles.mwomeokji_android.UserAccount
 import com.mrhiles.mwomeokji_android.UserLoginData
 import com.mrhiles.mwomeokji_android.UserLoginResponse
 import com.mrhiles.mwomeokji_android.databinding.ActivityLoginBinding
@@ -44,6 +46,9 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<UserLoginResponse>, response: Response<UserLoginResponse>) {
                 val userResponse = response.body()
 
+                G.userAccount?.imgfile = userResponse?.user?.imgfile?: ""
+
+                Log.d("ddd", "${userResponse}")
                 if (userResponse != null && userResponse.user != null) {
                     G.userAccount = userResponse.user
                     saveSharedPreferences()
@@ -57,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
                 Toast.makeText(this@LoginActivity, "관리자에게 문의하세요", Toast.LENGTH_SHORT).show()
+                Log.d("ddd","${t.message}")
             }
         })
     }
@@ -67,7 +73,6 @@ class LoginActivity : AppCompatActivity() {
         val editor = preferences.edit()
         editor.putString("nickname", G.userAccount?.nickname)
         editor.putString("email", G.userAccount?.email)
-        editor.putString("password", G.userAccount?.password)
         editor.putString("imgfile", G.userAccount?.imgfile)
         editor.apply()
     }

@@ -28,10 +28,9 @@ class IntroActivity : AppCompatActivity() {
             }, 2000)
         } else {
             G.apply {
-                userAccount= UserAccount("","","","")
+                userAccount= UserAccount("","","")
                 userAccount?.nickname= preferences.getString("nickname","")?: ""
                 userAccount?.email= preferences.getString("email","")?: ""
-                userAccount?.password= preferences.getString("password","")?: ""
                 userAccount?.imgfile = preferences.getString("imgfile","")?: ""
 
 

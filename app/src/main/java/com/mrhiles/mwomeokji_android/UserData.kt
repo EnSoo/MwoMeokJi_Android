@@ -19,7 +19,6 @@ data class UserLoginResponse(
 
 data class UserAccount(
     var email: String,
-    var password: String,
     var nickname: String,
     var imgfile:String
 )
