@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        val retrofit = RetrofitHelper.getRetrofitInstance("http://52.79.98.24")
+        val retrofit = RetrofitHelper.getunsafeRetrofitInstance("https://52.79.98.24")
         val retrofitService = retrofit.create(RetrofitService::class.java)
         val loginData = UserLoginData(email, password)
         retrofitService.userLoginToServer(loginData).enqueue(object : Callback<UserLoginResponse> {

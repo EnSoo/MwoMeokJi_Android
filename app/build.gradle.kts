@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.converter.scalars)
     implementation(libs.circleimageview)
     implementation(libs.play.services.location)
+    implementation(libs.androidx.ui.graphics.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

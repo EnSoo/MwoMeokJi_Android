@@ -59,7 +59,7 @@ class SignActivity : AppCompatActivity() {
             AlertDialog.Builder(this).setMessage("2~8자 내로 입력하세요").create().show()
 
         } else {
-            val retrofit = RetrofitHelper.getRetrofitInstance("http://52.79.98.24")
+            val retrofit = RetrofitHelper.getunsafeRetrofitInstance("https://52.79.98.24")
             val retrofitService = retrofit.create(RetrofitService::class.java)
             retrofitService.userCheckNickname(nickname).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -100,7 +100,7 @@ class SignActivity : AppCompatActivity() {
 
         if (saveCheck(nickname, email, password, passwordConfirm) && checkNickname()) {
 
-            val retrofit = RetrofitHelper.getRetrofitInstance("http://52.79.98.24")
+            val retrofit = RetrofitHelper.getunsafeRetrofitInstance("https://52.79.98.24")
             val retrofitService = retrofit.create(RetrofitService::class.java)
 
             val userData = UserSignupData(nickname, email, password)
