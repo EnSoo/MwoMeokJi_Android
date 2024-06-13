@@ -18,10 +18,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+
             android:name=".activities.PersonRuleActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ChangeProfileActivity"
+
+            android:name=".activities.PlaceDetailActivity"
+
             android:exported="false" />
         <activity
             android:name=".activities.SignActivity"
