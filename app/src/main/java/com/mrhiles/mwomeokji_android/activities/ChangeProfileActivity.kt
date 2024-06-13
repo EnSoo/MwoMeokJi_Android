@@ -37,7 +37,7 @@ import java.io.OutputStream
 class ChangeProfileActivity : AppCompatActivity() {
     private val binding by lazy { ActivityChangeProfileBinding.inflate(layoutInflater) }
 
-    val imgUrl = "http://52.79.98.24/backend/${G.userAccount?.imgfile}"
+    val imgUrl = "http://52.79.98.24/backend/upload/img${G.userAccount?.imgfile}"
 
     var imgPath: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -153,7 +153,7 @@ class ChangeProfileActivity : AppCompatActivity() {
                     saveSharedPreferences()
 
                     // 이미지 URL 다시 로드
-                    Glide.with(this@ChangeProfileActivity).load("http://52.79.98.24/backend/${G.userAccount?.imgfile ?: ""}").into(binding.changeUserImage)
+                    Glide.with(this@ChangeProfileActivity).load("http://52.79.98.24/backend/upload/img${G.userAccount?.imgfile ?: ""}").into(binding.changeUserImage)
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         finish()
@@ -194,6 +194,7 @@ class ChangeProfileActivity : AppCompatActivity() {
         editor.putString("imgfile", G.userAccount?.imgfile)
         editor.putString("nickname", G.userAccount?.nickname)
         editor.putString("password", G.userAccount?.password)
+        editor.putString("email",G.userAccount?.email)
         editor.apply()
     }
 

@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // 자동로그인 체크시 SharedPreference 저장
-    private fun saveSharedPreferences() {
+    fun saveSharedPreferences() {
         val preferences = getSharedPreferences("UserData", MODE_PRIVATE)
         val editor = preferences.edit()
         editor.putString("nickname", G.userAccount?.nickname)

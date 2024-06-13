@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.mrhiles.mwomeokji_android.G
 import com.mrhiles.mwomeokji_android.R
+import com.mrhiles.mwomeokji_android.UserAccount
 import com.mrhiles.mwomeokji_android.databinding.ActivityIntroBinding
 
 class IntroActivity : AppCompatActivity() {
@@ -27,16 +28,17 @@ class IntroActivity : AppCompatActivity() {
             }, 2000)
         } else {
             G.apply {
-                user_email = preferences.getString("user_email", "")!!
-                user_nickname = preferences.getString("user_nickname", "")!!
-                user_imageUrl = preferences.getString("user_imageUrl", "")!!
-                loginType = preferences.getString("loginType", "")!!
-                user_providerId = ""
+                userAccount= UserAccount("","","","")
+                userAccount?.nickname= preferences.getString("nickname","")?: ""
+                userAccount?.email= preferences.getString("email","")?: ""
+                userAccount?.password= preferences.getString("password","")?: ""
+                userAccount?.imgfile = preferences.getString("imgfile","")?: ""
+
 
             }
 
             Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(Intent(this, LoginActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
             }, 3000)
         }
     }

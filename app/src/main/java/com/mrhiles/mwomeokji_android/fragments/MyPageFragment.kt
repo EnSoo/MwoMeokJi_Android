@@ -2,7 +2,6 @@ package com.mrhiles.mwomeokji_android.fragments
 
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Paint
 import android.os.Bundle
 import android.os.Handler
@@ -36,7 +35,7 @@ class MyPageFragment : Fragment() {
 
     private val binding by lazy { FragmentMyPageBinding.inflate(layoutInflater) }
 
-//    var imgUrl= "http://52.79.98.24/backend/${G.userAccount?.imgfile}"
+    //var imgUrl= "http://52.79.98.24/backend/${G.userAccount?.imgfile}"
 
     companion object {
         private const val REQUEST_CHANGE_PROFILE = 1
@@ -65,7 +64,7 @@ class MyPageFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        imgUrl = "http://52.79.98.24/backend/${G.userAccount?.imgfile}"
+        //imgUrl = "http://52.79.98.24/backend/${G.userAccount?.imgfile}"
         reloadMypage()
     }
 
@@ -134,7 +133,7 @@ class MyPageFragment : Fragment() {
     }
 
     private fun updateProfileImage() {
-        val imgUrl = "http://52.79.98.24/backend/${G.userAccount?.imgfile}"
+        val imgUrl = "http://52.79.98.24/backend/upload/img${G.userAccount?.imgfile}"
         if (G.userAccount?.imgfile.isNullOrEmpty()) {
             binding.mypageUserImage.setImageResource(R.drawable.logo2)
         } else {
