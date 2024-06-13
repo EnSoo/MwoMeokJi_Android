@@ -23,7 +23,8 @@
             android:exported="false" />
         <activity
             android:name=".activities.ChangeProfileActivity"
-
+            android:exported="false" />
+        <activity
             android:name=".activities.PlaceDetailActivity"
 
             android:exported="false" />
