@@ -16,6 +16,7 @@ converterGson = "2.11.0"
 converterScalars = "2.11.0"
 circleimageview = "3.1.0"
 playServicesLocation = "21.3.0"
+uiGraphicsAndroid = "1.6.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,6 +34,7 @@ converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", ve
 converter-scalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version.ref = "converterScalars" }
 circleimageview = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+androidx-ui-graphics-android = { group = "androidx.compose.ui", name = "ui-graphics-android", version.ref = "uiGraphicsAndroid" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -18,7 +18,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+
+            android:name=".activities.PersonRuleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ChangeProfileActivity"
+
             android:name=".activities.PlaceDetailActivity"
+
             android:exported="false" />
         <activity
             android:name=".activities.SignActivity"
@@ -47,7 +54,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="aaa"
+            android:authorities="bbb"
             android:exported="false"
             android:grantUriPermissions="true">
 
