@@ -37,7 +37,7 @@ import java.io.OutputStream
 class ChangeProfileActivity : AppCompatActivity() {
     private val binding by lazy { ActivityChangeProfileBinding.inflate(layoutInflater) }
 
-    val imgUrl = "http://52.79.98.24/backend/upload/img${G.userAccount?.imgfile}"
+    val imgUrl = "http://52.79.98.24/backend/${G.userAccount?.imgfile}"
 
     var imgPath: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -140,17 +140,19 @@ class ChangeProfileActivity : AppCompatActivity() {
                 Callback<UserLoginResponse> {
                 override fun onResponse(call: Call<UserLoginResponse>, response: Response<UserLoginResponse>) {
                     val userResponse = response.body()
+                    if(userResponse?.rowNum==1){ // 회원정보 수정을 성공했을 경우
+                        G.userAccount?.imgfile = userResponse?.user?.imgfile ?: ""
 
-                    G.userAccount?.imgfile = userResponse?.user?.imgfile ?: ""
+                        userResponse?.user?.apply {
+                            G.userAccount?.nickname = userResponse.user.nickname
+                            G.userAccount?.imgfile = userResponse.user.imgfile
+                        }
 
-                    userResponse?.user?.apply {
-                        G.userAccount?.nickname = userResponse.user.nickname
-                        G.userAccount?.imgfile = userResponse.user.imgfile
+                        AlertDialog.Builder(this@ChangeProfileActivity).setMessage("변경이 완료되었습니다").create().show()
+                        saveSharedPreferences()
+                    } else {
+                        AlertDialog.Builder(this@ChangeProfileActivity).setMessage("변경이 실패되었습니다").create().show()
                     }
-
-                    AlertDialog.Builder(this@ChangeProfileActivity).setMessage("변경이 완료되었습니다").create().show()
-                    saveSharedPreferences()
-
                     // 이미지 URL 다시 로드
                     Glide.with(this@ChangeProfileActivity).load("http://52.79.98.24/backend/upload/img${G.userAccount?.imgfile ?: ""}").into(binding.changeUserImage)
 
@@ -192,7 +194,6 @@ class ChangeProfileActivity : AppCompatActivity() {
         // 작성자를 통해 데이터를 작성
         editor.putString("imgfile", G.userAccount?.imgfile)
         editor.putString("nickname", G.userAccount?.nickname)
-//        editor.putString("password", G.userAccount?.password)
         editor.putString("email",G.userAccount?.email)
         editor.apply()
     }

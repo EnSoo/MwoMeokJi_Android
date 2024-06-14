@@ -60,6 +60,7 @@ class MyPageFragment : Fragment() {
         binding.mypageUserNickname.text = G.userAccount?.nickname
 
         updateNickname()
+        Log.d("img","${G.userAccount?.imgfile}")
     }
 
     override fun onResume() {
@@ -133,7 +134,7 @@ class MyPageFragment : Fragment() {
     }
 
     private fun updateProfileImage() {
-        val imgUrl = "http://52.79.98.24/backend/upload/img${G.userAccount?.imgfile}"
+        val imgUrl = "http://52.79.98.24/backend/${G.userAccount?.imgfile}"
         if (G.userAccount?.imgfile.isNullOrEmpty()) {
             binding.mypageUserImage.setImageResource(R.drawable.logo2)
         } else {
