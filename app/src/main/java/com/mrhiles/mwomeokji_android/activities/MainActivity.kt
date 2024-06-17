@@ -6,9 +6,11 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -21,6 +23,8 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.google.gson.Gson
+import com.mrhiles.mwomeokji_android.G
 import com.mrhiles.mwomeokji_android.databinding.ActivityMainBinding
 import com.mrhiles.mwomeokji_android.R
 import com.mrhiles.mwomeokji_android.fragments.MyPageFragment
@@ -68,7 +72,6 @@ class MainActivity : AppCompatActivity() {
                     // 'My Page' 메뉴 선택 시 containerFragment를 표시
                     binding.containerFragment.visibility = View.VISIBLE
                     binding.wv.visibility=View.GONE
-                    Toast.makeText(this, "마이페이지", Toast.LENGTH_SHORT).show()
                 }
             }
             true
@@ -81,13 +84,19 @@ class MainActivity : AppCompatActivity() {
         binding.wv.settings.displayZoomControls= false
         binding.wv.settings.domStorageEnabled= true
 
-        binding.wv.webViewClient= WebViewClient()
+        binding.wv.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                // 웹 페이지가 완전히 로드된 후에 자바스크립트 함수를 호출
+                binding.wv.loadUrl("javascript:setUser(${Gson().toJson(G.userAccount)})")
+            }
+        }
         binding.wv.webChromeClient= WebChromeClient()
 
         //웹뷰가 보여줄 웹페이지를 로딩하기
         binding.wv.loadUrl("http://52.79.98.24/")
 
-
+        // 리액트 -> 안드로이드 카카오 url
         binding.wv.addJavascriptInterface(MyWebViewConnector(),"InfoWindow")
 
     }
