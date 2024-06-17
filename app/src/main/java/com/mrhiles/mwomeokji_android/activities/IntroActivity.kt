@@ -20,7 +20,7 @@ class IntroActivity : AppCompatActivity() {
         Glide.with(this).load(R.drawable.logo).into(binding.iv)
 
         val preferences = getSharedPreferences("UserData", MODE_PRIVATE)
-        val email = preferences.getString("user_email", "")
+        val email = preferences.getString("email", "")
         if (email == null || email.equals("")) {
             Handler(Looper.getMainLooper()).postDelayed({
                 startActivity(Intent(this, LoginActivity::class.java))
