@@ -35,7 +35,7 @@ class MyPageFragment : Fragment() {
 
     private val binding by lazy { FragmentMyPageBinding.inflate(layoutInflater) }
 
-    //var imgUrl= "http://52.79.98.24/backend/${G.userAccount?.imgfile}"
+    //var imgUrl= "http://${G.baseUrl}/backend/${G.userAccount?.imgfile}"
 
     companion object {
         private const val REQUEST_CHANGE_PROFILE = 1
@@ -65,7 +65,7 @@ class MyPageFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        //imgUrl = "http://52.79.98.24/backend/${G.userAccount?.imgfile}"
+        //imgUrl = "http://${G.baseUrl}/backend/${G.userAccount?.imgfile}"
         reloadMypage()
     }
 
@@ -107,7 +107,7 @@ class MyPageFragment : Fragment() {
     }
 
     private fun deleteUser(password: String) {
-        val retrofit = RetrofitHelper.getRetrofitInstance("http://52.79.98.24")
+        val retrofit = RetrofitHelper.getRetrofitInstance("http://${G.baseUrl}")
         val retrofitService = retrofit.create(RetrofitService::class.java)
         val email = G.userAccount?.email ?: ""
         val loginData = UserLoginData(email, password)
@@ -134,7 +134,7 @@ class MyPageFragment : Fragment() {
     }
 
     private fun updateProfileImage() {
-        val imgUrl = "http://52.79.98.24/backend/${G.userAccount?.imgfile}"
+        val imgUrl = "http://${G.baseUrl}/backend/${G.userAccount?.imgfile}"
         if (G.userAccount?.imgfile.isNullOrEmpty()) {
             binding.mypageUserImage.setImageResource(R.drawable.logo2)
         } else {

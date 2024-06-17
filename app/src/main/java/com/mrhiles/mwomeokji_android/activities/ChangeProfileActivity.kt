@@ -37,7 +37,7 @@ import java.io.OutputStream
 class ChangeProfileActivity : AppCompatActivity() {
     private val binding by lazy { ActivityChangeProfileBinding.inflate(layoutInflater) }
 
-    val imgUrl = "http://52.79.98.24/backend/${G.userAccount?.imgfile}"
+    val imgUrl = "http://${G.baseUrl}/backend/${G.userAccount?.imgfile}"
 
     var imgPath: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,7 +134,7 @@ class ChangeProfileActivity : AppCompatActivity() {
                 MultipartBody.Part.createFormData("img1", file.name, requestBody) // 택배상자 포장.. == 리턴되는 값
             }
 
-            val retrofit = RetrofitHelper.getRetrofitInstance("http://52.79.98.24")
+            val retrofit = RetrofitHelper.getRetrofitInstance("http://${G.baseUrl}")
             val retrofitService = retrofit.create(RetrofitService::class.java)
             retrofitService.userChangeProfile(dataPart, filePart).enqueue(object :
                 Callback<UserLoginResponse> {
@@ -154,7 +154,7 @@ class ChangeProfileActivity : AppCompatActivity() {
                         AlertDialog.Builder(this@ChangeProfileActivity).setMessage("변경이 실패되었습니다").create().show()
                     }
                     // 이미지 URL 다시 로드
-                    Glide.with(this@ChangeProfileActivity).load("http://52.79.98.24/backend/upload/img${G.userAccount?.imgfile ?: ""}").into(binding.changeUserImage)
+                    Glide.with(this@ChangeProfileActivity).load("http://${G.baseUrl}/backend/upload/img${G.userAccount?.imgfile ?: ""}").into(binding.changeUserImage)
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         finish()
