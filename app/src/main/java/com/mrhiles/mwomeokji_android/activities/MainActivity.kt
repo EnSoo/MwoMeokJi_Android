@@ -12,6 +12,8 @@ import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.webkit.JavascriptInterface
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
@@ -28,6 +30,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import com.mrhiles.mwomeokji_android.G
 import com.mrhiles.mwomeokji_android.databinding.ActivityMainBinding
@@ -46,6 +49,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        val window: Window = window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = resources.getColor(R.color.statusBarColor)
 
         // [바텀네비 별로 프래그먼트 보이도록 설정]
         supportFragmentManager.beginTransaction().add((R.id.container_fragment),MyPageFragment()).commit()

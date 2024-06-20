@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.MwoMeokJi_Android" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.MwoMeokJi_Android" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
@@ -10,6 +10,11 @@
         <item name="android:editTextStyle">@style/customEditTextFontStyle</item>
         <item name="android:radioButtonStyle">@style/customRadioButtonFontStyle</item>
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">#55A416</item>
+        <!-- Optionally, make the status bar icons dark -->
+        <item name="android:windowLightStatusBar">true</item>
 
     </style>
 
