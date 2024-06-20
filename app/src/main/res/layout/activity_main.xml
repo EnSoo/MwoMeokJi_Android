@@ -43,7 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="#F8E6C4"
+        android:background="#55A416"
         app:itemTextColor="@color/bnv_color"
         app:menu="@menu/bnv_menu"/>
 
