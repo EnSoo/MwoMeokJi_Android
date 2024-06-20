@@ -1,14 +1,19 @@
 package com.mrhiles.mwomeokji_android.activities
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Looper
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.webkit.JavascriptInterface
+import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -91,13 +96,12 @@ class MainActivity : AppCompatActivity() {
                 binding.wv.loadUrl("javascript:setUser(${Gson().toJson(G.userAccount)})")
             }
         }
-        binding.wv.webChromeClient= WebChromeClient()
-
+        binding.wv.webChromeClient= MyWebChromeClient(this)
         //웹뷰가 보여줄 웹페이지를 로딩하기
         binding.wv.loadUrl("http://${G.baseUrl}/")
 
         // 리액트 -> 안드로이드 카카오 url
-        binding.wv.addJavascriptInterface(MyWebViewConnector(),"InfoWindow")
+        binding.wv.addJavascriptInterface(MyWebViewConnector(),"Droid")
 
     }
 
@@ -149,12 +153,60 @@ class MainActivity : AppCompatActivity() {
     // 2)웹뷰의 javascript와 통신을 담당할 연결자 객체 클래스 정의
     inner class MyWebViewConnector{
 
+        // /map 페이지 : 마커 -> 인포윈도우 -> 클릭시 activity(카카오 장소 url로 웹뷰 오픈)
         @JavascriptInterface
         fun DetailActivity(url:String){
             val intent = Intent(this@MainActivity,PlaceDetailActivity::class.java)
             intent.putExtra("place_url",url)
             this@MainActivity.startActivity(intent)
         }
+    }
 
+    // 3) file 업로드를 위한 객체 클래스 정의
+    var mFilePathCallback : ValueCallback<Array<Uri>>? = null
+
+    inner class MyWebChromeClient(val context:Context) : WebChromeClient(){
+
+        //웹뷰의 input type=file 요소를 선택했을 때 반응하기
+        override fun onShowFileChooser(
+            webView: WebView?,
+            filePathCallback: ValueCallback<Array<Uri>>?,
+            fileChooserParams: FileChooserParams?
+        ): Boolean {
+//            Toast.makeText(context, "파일 선택 클릭 이벤트 발생", Toast.LENGTH_SHORT).show()
+
+            // 사진 선택 화면으로 이동하여 선택결과 받기
+            val intent=if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.TIRAMISU) Intent(MediaStore.ACTION_PICK_IMAGES).putExtra(MediaStore.EXTRA_PICK_IMAGES_MAX, 10)
+            else Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/*").putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+
+            resultLauncher.launch(intent)
+
+            //이 메소드의 2번째 파라미터 filePathCallback : 파일선택의 결과를 JS쪽으로 돌려주는 콜백객체
+            mFilePathCallback= filePathCallback
+
+            return true
+            //return super.onShowFileChooser(webView, filePathCallback, fileChooserParams)
+        }
+
+        val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if(it.resultCode== RESULT_CANCELED) {
+                Toast.makeText(context, "파일 선택을 취소하셨습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                val imgs: MutableList<Uri> = mutableListOf()
+                //  1개를 선택하면 URI 정보를 data로 받아옴
+                // 2개 이상을 선택하면 ClipData로 전달되어 옴
+                if(it.data?.data != null) imgs.add(it.data!!.data!!)
+                else {
+                    val cnt= it. data?.clipData?.itemCount!!
+                    for( n in 0 until  cnt) imgs.add(it.data!!.clipData!!.getItemAt(n).uri)
+
+                    Toast.makeText(context, "선택한 파일 개수 ${imgs.size}", Toast.LENGTH_SHORT).show()
+
+                    // 네이티브앱에서 대신 선택한 파일 uri 정보들을 웹뷰의 JS에 다시 전달..
+                    val uris:Array<Uri> = imgs.toTypedArray()
+                    mFilePathCallback!!.onReceiveValue(uris)
+                }
+            }
+        }
     }
 }
