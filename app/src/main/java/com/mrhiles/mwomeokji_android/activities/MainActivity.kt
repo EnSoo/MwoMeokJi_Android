@@ -191,7 +191,6 @@ class MainActivity : AppCompatActivity() {
         // /recipe_recommender 페이지에서 선호도 조사 완료 후 localStorage 저장하는 JsonString을 Preference에 저장
         @JavascriptInterface
         fun setUserPreferences(jsonString : String) {
-            Toast.makeText(this@MainActivity, "${jsonString}", Toast.LENGTH_SHORT).show()
             val preferences = getSharedPreferences("userPreferences", MODE_PRIVATE)
             val editor = preferences.edit()
             editor.putString("userSelectData", jsonString)
