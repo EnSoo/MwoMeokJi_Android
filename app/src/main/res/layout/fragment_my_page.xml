@@ -67,6 +67,28 @@
             android:textSize="16sp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/change_favor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_mypage_setting"
+        android:layerType="software"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="나의 선호도"
+            android:textSize="16sp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="> > >"
+            android:textColor="#8B8686"
+            android:textSize="16sp"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/person_rule"

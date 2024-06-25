@@ -23,6 +23,7 @@ import com.mrhiles.mwomeokji_android.UserLoginData
 import com.mrhiles.mwomeokji_android.activities.ChangeProfileActivity
 import com.mrhiles.mwomeokji_android.activities.LoginActivity
 import com.mrhiles.mwomeokji_android.activities.MainActivity
+import com.mrhiles.mwomeokji_android.activities.MyFaovrActivity
 import com.mrhiles.mwomeokji_android.activities.PersonRuleActivity
 import com.mrhiles.mwomeokji_android.databinding.FragmentMyPageBinding
 import com.mrhiles.mwomeokji_android.network.RetrofitHelper
@@ -57,10 +58,15 @@ class MyPageFragment : Fragment() {
         binding.userDelete.setOnClickListener { showDeleteUserDialog() }
         binding.changeProfile.setOnClickListener { navigateToChangeProfile() }
         binding.personRule.setOnClickListener { navigateToPersonRule() }
+        binding.changeFavor.setOnClickListener { navigateToMyFavor() }
         binding.mypageUserNickname.text = G.userAccount?.nickname
 
         updateNickname()
         Log.d("img","${G.userAccount?.imgfile}")
+    }
+    private fun navigateToMyFavor() {
+        val intent = Intent(requireContext(), MyFaovrActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onResume() {
@@ -158,6 +164,10 @@ class MyPageFragment : Fragment() {
         updateNickname()
         updateProfileImage()
     }
+
+//    private fun navigateToMyFavor() {  이거 일단 보류
+//        startActivity(Intent(requireContext(), MyFavorActivity::class.java))
+//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
