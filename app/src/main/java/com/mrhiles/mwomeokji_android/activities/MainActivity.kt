@@ -58,8 +58,6 @@ class MainActivity : AppCompatActivity() {
         val window: Window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = resources.getColor(R.color.statusBarColor)
-        // 안드로이드 구분자
-        binding.wv.loadUrl("javascript:setIsAndroid(true)")
 
         // [바텀네비 별로 프래그먼트 보이도록 설정]
         supportFragmentManager.beginTransaction().add((R.id.container_fragment), MyPageFragment())
@@ -112,6 +110,8 @@ class MainActivity : AppCompatActivity() {
                 super.onPageFinished(view, url)
                 // 웹 페이지가 완전히 로드된 후에 자바스크립트 함수를 호출
                 binding.wv.loadUrl("javascript:setUser(${Gson().toJson(G.userAccount)})")
+                // 안드로이드 구분자
+                binding.wv.loadUrl("javascript:setIsAndroid(true)")
             }
         }
         binding.wv.webChromeClient = MyWebChromeClient(this)
@@ -187,6 +187,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, PlaceDetailActivity::class.java)
             intent.putExtra("place_url", url)
             this@MainActivity.startActivity(intent)
+        }
+        // /recipe_recommender 페이지에서 선호도 조사 완료 후 localStorage 저장하는 JsonString을 Preference에 저장
+        @JavascriptInterface
+        fun setUserPreferences(jsonString : String) {
+            Toast.makeText(this@MainActivity, "${jsonString}", Toast.LENGTH_SHORT).show()
+            val preferences = getSharedPreferences("userPreferences", MODE_PRIVATE)
+            val editor = preferences.edit()
+            editor.putString("userSelectData", jsonString)
+            editor.apply()
         }
     }
 
