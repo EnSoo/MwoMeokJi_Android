@@ -58,6 +58,8 @@ class MainActivity : AppCompatActivity() {
         val window: Window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = resources.getColor(R.color.statusBarColor)
+        // 안드로이드 구분자
+        binding.wv.loadUrl("javascript:setIsAndroid(TRUE)")
 
         // [바텀네비 별로 프래그먼트 보이도록 설정]
         supportFragmentManager.beginTransaction().add((R.id.container_fragment), MyPageFragment())
