@@ -6,12 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.MyFaovrActivity">
+    tools:context=".activities.MyFaovrActivity"
+    android:background="#4097EF50">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#55A416"
         android:orientation="horizontal"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:layerType="software"
         android:padding="16dp">
 
@@ -19,6 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="나의 선호도 목록"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_weight="1"
             android:gravity="center"/>
@@ -26,25 +32,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp">
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/black"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"/>
+            android:background="@color/black"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#55A416"
             android:padding="15px"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:text="분류"
             android:gravity="center"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/black"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"/>
+            android:background="@color/black"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,8 +91,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:background="#55A416"
                 android:padding="15px"
                 android:text="매운 정도"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:gravity="center"/>
         <View
             android:layout_width="match_parent"
@@ -144,9 +156,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:background="#55A416"
             android:text="식습관 유형"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:padding="15px"
             android:gravity="center"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -187,8 +205,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:background="#55A416"
             android:padding="15px"
             android:text="칼로리"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:gravity="center" />
         <View
             android:layout_width="match_parent"
@@ -232,8 +255,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:background="#55A416"
             android:padding="15px"
             android:text="평균 조리 시간"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:gravity="center"/>
         <View
             android:layout_width="match_parent"
@@ -293,8 +321,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:background="#55A416"
             android:padding="15px"
             android:text="만들고 싶은 음식"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:gravity="center"/>
         <View
             android:layout_width="match_parent"
