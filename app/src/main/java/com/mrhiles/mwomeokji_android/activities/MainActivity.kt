@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -30,7 +29,6 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import com.mrhiles.mwomeokji_android.G
 import com.mrhiles.mwomeokji_android.databinding.ActivityMainBinding
@@ -121,12 +119,6 @@ class MainActivity : AppCompatActivity() {
         // 리액트 -> 안드로이드 카카오 url
         binding.wv.addJavascriptInterface(MyWebViewConnector(), "Droid")
 
-        handleIntent(intent)
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        handleIntent(intent)
     }
 
     private fun getLocation() {
@@ -276,23 +268,17 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-    private fun handleIntent(intent: Intent) {
-        val action = intent.getStringExtra("action")
-        if (action == "setLocalStorage") {
-            val jsonString = intent.getStringExtra("jsonString")
-            if (jsonString != null) {
-                setLocalStorage(jsonString)
-            } else {
-                setLocalStorage()
-            }
+
+    override fun onResume() {
+        super.onResume()
+        // SharedPreferences에서 값 가져오기
+        val preferences = getSharedPreferences("userPreferences", MODE_PRIVATE)
+        val userSelectData = preferences.getString("userSelectData", "")
+        // JSON 문자열을 JSONObject로 변환
+        if (!userSelectData.isNullOrEmpty()) {
+            binding.wv.loadUrl("javascript:setLocalStorage(${Gson().toJson(userSelectData)})")
+        } else {
+            binding.wv.loadUrl("javascript:setLocalStorage()")
         }
-    }
-
-    fun setLocalStorage(jsonString: String){        //이건 수정할때 쓸 코드
-        binding.wv.loadUrl("javascript:setLocalStorage(${jsonString})")
-    }
-
-    fun setLocalStorage(){          // 이건 초기화 할때 쓸 코드
-        binding.wv.loadUrl("javascript:setLocalStorage()")
     }
 }
