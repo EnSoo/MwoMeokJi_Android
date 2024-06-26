@@ -3,12 +3,12 @@
     <item android:state_pressed="true">
         <!-- Define a drawable or shape for the pressed state -->
         <shape>
-            <solid android:color="#FFCDD2" /> <!-- Example color for pressed state -->
+            <solid android:color="@color/white" /> <!-- Example color for pressed state -->
         </shape>
     </item>
     <item android:state_focused="true">
         <shape>
-            <solid android:color="#FFEBEE" />
+            <solid android:color="@color/white" />
         </shape>
     </item>
     <item>
