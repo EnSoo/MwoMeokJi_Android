@@ -270,5 +270,10 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-
+    fun setLocalStorage(jsonString: String){
+        binding.wv.loadUrl("javascript:setLocalStorage(${jsonString})")
+    }
+    fun setLocalStorage(){
+        binding.wv.loadUrl("javascript:setLocalStorage()")
+    }
 }
