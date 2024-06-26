@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.MyFaovrActivity">
+    tools:context=".activities.MyFaovrActivity"
+    android:background="@color/white">
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -353,14 +354,33 @@
                 android:text="소스"/>
         </LinearLayout>
     </LinearLayout>
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/Ok_Btn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#55A416"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-        android:text="확인"
-        android:layout_gravity="center"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/modify_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#55A416"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="수정완료"
+            android:layout_gravity="center"
+            android:layout_marginEnd="40dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ok_Btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#55A416"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="초기화"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"/>
+
+    </LinearLayout>
 </LinearLayout>
