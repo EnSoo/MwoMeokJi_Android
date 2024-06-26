@@ -12,10 +12,13 @@ class MyFaovrActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.toolbar.setNavigationOnClickListener { finish() }
         applySelectorToViews()
 
         preSelectButtons()
     }
+
+
 
     private fun applySelectorToViews() {
         val radioButtons = listOf(

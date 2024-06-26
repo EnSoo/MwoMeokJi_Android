@@ -64,10 +64,6 @@ class MyPageFragment : Fragment() {
         updateNickname()
         Log.d("img","${G.userAccount?.imgfile}")
     }
-    private fun navigateToMyFavor() {
-        val intent = Intent(requireContext(), MyFaovrActivity::class.java)
-        startActivity(intent)
-    }
 
     override fun onResume() {
         super.onResume()
@@ -165,9 +161,9 @@ class MyPageFragment : Fragment() {
         updateProfileImage()
     }
 
-//    private fun navigateToMyFavor() {  이거 일단 보류
-//        startActivity(Intent(requireContext(), MyFavorActivity::class.java))
-//    }
+    private fun navigateToMyFavor() {
+        startActivity(Intent(requireContext(), MyFaovrActivity::class.java))
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
