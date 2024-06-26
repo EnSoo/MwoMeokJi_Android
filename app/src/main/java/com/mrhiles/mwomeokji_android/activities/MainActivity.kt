@@ -121,6 +121,12 @@ class MainActivity : AppCompatActivity() {
         // 리액트 -> 안드로이드 카카오 url
         binding.wv.addJavascriptInterface(MyWebViewConnector(), "Droid")
 
+        handleIntent(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
     }
 
     private fun getLocation() {
@@ -270,10 +276,23 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-    fun setLocalStorage(jsonString: String){
+    private fun handleIntent(intent: Intent) {
+        val action = intent.getStringExtra("action")
+        if (action == "setLocalStorage") {
+            val jsonString = intent.getStringExtra("jsonString")
+            if (jsonString != null) {
+                setLocalStorage(jsonString)
+            } else {
+                setLocalStorage()
+            }
+        }
+    }
+
+    fun setLocalStorage(jsonString: String){        //이건 수정할때 쓸 코드
         binding.wv.loadUrl("javascript:setLocalStorage(${jsonString})")
     }
-    fun setLocalStorage(){
+
+    fun setLocalStorage(){          // 이건 초기화 할때 쓸 코드
         binding.wv.loadUrl("javascript:setLocalStorage()")
     }
 }
