@@ -281,5 +281,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.wv.loadUrl("javascript:setLocalStorage()")
         }
+        binding.wv.loadUrl("javascript:setIsAndroid(true)")
     }
 }
