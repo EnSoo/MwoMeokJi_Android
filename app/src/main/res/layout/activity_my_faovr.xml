@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <RadioButton
-                        android:id="@+id/re_me"
+                        android:id="@+id/ra_me"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="육식" />
