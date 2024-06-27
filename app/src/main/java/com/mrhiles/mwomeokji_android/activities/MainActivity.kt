@@ -103,6 +103,7 @@ class MainActivity : AppCompatActivity() {
         binding.wv.settings.displayZoomControls = false
         binding.wv.settings.domStorageEnabled = true
 
+        binding.wv.loadUrl("javascript:setIsAndroid(true)")
         binding.wv.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)

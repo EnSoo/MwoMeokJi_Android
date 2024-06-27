@@ -65,7 +65,6 @@ class SignActivity : AppCompatActivity() {
             retrofitService.userCheckNickname(nickname).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     var s = response.body().toString()
-                    AlertDialog.Builder(this@SignActivity).setMessage(s).create().show()
                     chechNickname = s.trim().toBoolean()
                     if (chechNickname) {
                         AlertDialog.Builder(this@SignActivity).setMessage("사용가능 합니다.").create()
