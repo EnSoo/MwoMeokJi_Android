@@ -27,7 +27,7 @@ class MyFaovrActivity : AppCompatActivity() {
         binding.raSo,
         binding.raGood,
         binding.raGood2,
-        binding.reMe,
+        binding.raMe,
         binding.raVe,
         binding.raNop,
         binding.rowkal,
@@ -147,7 +147,7 @@ class MyFaovrActivity : AppCompatActivity() {
         return spicinessButtons.any { it.isChecked }
     }
     private fun isDietTypeSelected(): Boolean {
-        val dietTypeButtons = arrayOf(binding.reMe, binding.raVe, binding.raNop)
+        val dietTypeButtons = arrayOf(binding.raMe, binding.raVe, binding.raNop)
         return dietTypeButtons.any { it.isChecked }
     }
     private fun isCaloriesSelected(): Boolean {
@@ -289,6 +289,14 @@ class MyFaovrActivity : AppCompatActivity() {
     private fun resetSelections() {
         checkBoxes.forEach{it.isChecked=false}
         radioButtons.forEach{it.isChecked=false}
+
+        binding.raSo.isChecked = true // 기본값 medium
+        binding.sokal.isChecked = true // 기본값 medium
+        binding.m30M60.isChecked = true // 기본값 medium
+
+        binding.raVe.isChecked = false
+        binding.raMe.isChecked = false
+        binding.soup.isChecked = false
 
         // SharedPreference 삭제
         val preferences = getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
