@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -17,7 +16,6 @@ import com.mrhiles.mwomeokji_android.databinding.ActivityMainBinding
 import com.mrhiles.mwomeokji_android.databinding.ActivityMyFaovrBinding
 import org.json.JSONArray
 import org.json.JSONObject
-
 
 class MyFaovrActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMyFaovrBinding.inflate(layoutInflater) }
@@ -61,6 +59,7 @@ class MyFaovrActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener { finish() }
         binding.modifyBtn.setOnClickListener {
             saveSelections()
+            finish()
         }
         binding.resetBtn.setOnClickListener {
             resetSelections()
@@ -77,111 +76,73 @@ class MyFaovrActivity : AppCompatActivity() {
             initializeSelections(originJson)
         }
     }
-        private fun initializeSelections(originJson: JSONObject) {
-            // 분류
-            val categories=originJson.getJSONArray("categories")
-            for (i in 0 until categories.length()) {
-                categories.getString(i).let{
-                    when (it) {
-                        "한식" -> checkBoxes.get(0).isChecked = true // binding.ko
-                        "중식" -> checkBoxes.get(1).isChecked = true // binding.ch
-                        "일식" -> checkBoxes.get(2).isChecked = true // binding.ja
-                        "기타" -> checkBoxes.get(3).isChecked = true // binding.kita
-                        // 필요한 경우 다른 케이스도 추가
-                    }
-                }
-            }
-
-            // 매운정도
-            val spiciness=originJson.getString("spiciness")
-            when (spiciness) {
-                "안 매움" ->    radioButtons.get(0).isChecked = true       // binding.raNoeat1
-                "약간 매움" ->  radioButtons.get(1).isChecked = true       // binding.raNoeat2
-                "보통" ->      radioButtons.get(2).isChecked = true       // inding.raSo
-                "매움" ->      radioButtons.get(3).isChecked = true       // binding.raGood
-                "엄청 매움" ->  radioButtons.get(4).isChecked = true       // binding.raGood2
-            }
-
-            // 식습관 유형
-            val dietType=originJson.getString("dietType")
-            when (dietType) {
-                "육식" ->      radioButtons.get(5).isChecked = true      // binding.reMe
-                "채식(비건)" -> radioButtons.get(6).isChecked = true      // binding.raVe
-                "상관없음" ->   radioButtons.get(7).isChecked = true      // binding.raNop
-            }
-
-            // 칼로리
-            val calories=originJson.getString("calories")
-            when (calories) {
-                "low" ->      radioButtons.get(8).isChecked = true       // binding.rowkal
-                "medium" ->   radioButtons.get(9).isChecked = true       // binding.sokal
-                "high" ->     radioButtons.get(10).isChecked = true      // binding.gokal
-            }
-
-            // 조리시간
-            val cookingTime=originJson.getString("cookingTime")
-            when (cookingTime) {
-                "veryShort" -> radioButtons.get(11).isChecked = true      // binding.m15
-                "short" ->     radioButtons.get(12).isChecked = true      // binding.m15M30
-                "medium" ->    radioButtons.get(13).isChecked = true      // binding.m30M60
-                "long" ->      radioButtons.get(14).isChecked = true      // binding.m60M120
-                "veryLong" ->  radioButtons.get(15).isChecked = true      // binding.m120
-            }
-
-            // 만들고 싶은 음식
-            val dishType=originJson.getJSONArray("dishType")
-            for (i in 0 until dishType.length()) {
-                dishType.getString(i).let{
-                    when (it) {
-                        "메인요리" ->   checkBoxes.get(4).isChecked = true      // binding.ChMain
-                        "반찬" ->      checkBoxes.get(5).isChecked = true      // binding.side
-                        "간식" ->      checkBoxes.get(6).isChecked = true      // binding.dessert
-                        "국물요리" ->   checkBoxes.get(7).isChecked = true      // binding.soup
-                        "소스" ->      checkBoxes.get(8).isChecked = true      // binding.sauce
-                    }
+    private fun initializeSelections(originJson: JSONObject) {
+        // 분류
+        val categories=originJson.getJSONArray("categories")
+        for (i in 0 until categories.length()) {
+            categories.getString(i).let{
+                when (it) {
+                    "한식" -> checkBoxes.get(0).isChecked = true // binding.ko
+                    "중식" -> checkBoxes.get(1).isChecked = true // binding.ch
+                    "일식" -> checkBoxes.get(2).isChecked = true // binding.ja
+                    "기타" -> checkBoxes.get(3).isChecked = true // binding.kita
+                    // 필요한 경우 다른 케이스도 추가
                 }
             }
         }
-    private fun isSpicinessSelected(): Boolean {
-        val spicinessButtons = arrayOf(binding.raNoeat1, binding.raNoeat2, binding.raSo, binding.raGood, binding.raGood2)
-        return spicinessButtons.any { it.isChecked }
-    }
-    private fun isDietTypeSelected(): Boolean {
-        val dietTypeButtons = arrayOf(binding.raMe, binding.raVe, binding.raNop)
-        return dietTypeButtons.any { it.isChecked }
-    }
-    private fun isCaloriesSelected(): Boolean {
-        val caloriesButtons = arrayOf(binding.rowkal, binding.sokal, binding.gokal)
-        return caloriesButtons.any { it.isChecked }
-    }private fun isCookingTimeSelected(): Boolean {
-        val cookingTimeButtons = arrayOf(binding.m15, binding.m15M30, binding.m30M60, binding.m60M120, binding.m120)
-        return cookingTimeButtons.any { it.isChecked }
-    }
-    private fun isDishTypeSelected(): Boolean {
-        val dishTypeCheckBoxes = arrayOf(binding.ChMain, binding.side, binding.dessert, binding.soup, binding.sauce)
-        return dishTypeCheckBoxes.any { it.isChecked }
-    }private fun isCategoriesSelected(): Boolean {
-        val categoriesCheckBoxes = arrayOf(binding.ko, binding.ch, binding.ja, binding.kita)
-        return categoriesCheckBoxes.any { it.isChecked }
-    }private fun isAllSelectionsMade(): Boolean {
-        return isSpicinessSelected() && isDietTypeSelected() && isCaloriesSelected() &&
-                isCookingTimeSelected() && isDishTypeSelected() && isCategoriesSelected()
-    }private fun showIncompleteSelectionDialog() {
-        if(!isFinishing && !isDestroyed) {
-            AlertDialog.Builder(this)
-                .setTitle("선택 오류")
-                .setMessage("모든 항목을 선택해 주세요.")
-                .setPositiveButton("확인") { dialog, _ -> dialog.dismiss() }
-                .show()
+
+        // 매운정도
+        val spiciness=originJson.getString("spiciness")
+        when (spiciness) {
+            "안 매움" ->    radioButtons.get(0).isChecked = true       // binding.raNoeat1
+            "약간 매움" ->  radioButtons.get(1).isChecked = true       // binding.raNoeat2
+            "보통" ->      radioButtons.get(2).isChecked = true       // inding.raSo
+            "매움" ->      radioButtons.get(3).isChecked = true       // binding.raGood
+            "엄청 매움" ->  radioButtons.get(4).isChecked = true       // binding.raGood2
+        }
+
+        // 식습관 유형
+        val dietType=originJson.getString("dietType")
+        when (dietType) {
+            "육식" ->      radioButtons.get(5).isChecked = true      // binding.reMe
+            "채식(비건)" -> radioButtons.get(6).isChecked = true      // binding.raVe
+            "상관없음" ->   radioButtons.get(7).isChecked = true      // binding.raNop
+        }
+
+        // 칼로리
+        val calories=originJson.getString("calories")
+        when (calories) {
+            "low" ->      radioButtons.get(8).isChecked = true       // binding.rowkal
+            "medium" ->   radioButtons.get(9).isChecked = true       // binding.sokal
+            "high" ->     radioButtons.get(10).isChecked = true      // binding.gokal
+        }
+
+        // 조리시간
+        val cookingTime=originJson.getString("cookingTime")
+        when (cookingTime) {
+            "veryShort" -> radioButtons.get(11).isChecked = true      // binding.m15
+            "short" ->     radioButtons.get(12).isChecked = true      // binding.m15M30
+            "medium" ->    radioButtons.get(13).isChecked = true      // binding.m30M60
+            "long" ->      radioButtons.get(14).isChecked = true      // binding.m60M120
+            "veryLong" ->  radioButtons.get(15).isChecked = true      // binding.m120
+        }
+
+        // 만들고 싶은 음식
+        val dishType=originJson.getJSONArray("dishType")
+        for (i in 0 until dishType.length()) {
+            dishType.getString(i).let{
+                when (it) {
+                    "메인요리" ->   checkBoxes.get(4).isChecked = true      // binding.ChMain
+                    "반찬" ->      checkBoxes.get(5).isChecked = true      // binding.side
+                    "간식" ->      checkBoxes.get(6).isChecked = true      // binding.dessert
+                    "국물요리" ->   checkBoxes.get(7).isChecked = true      // binding.soup
+                    "소스" ->      checkBoxes.get(8).isChecked = true      // binding.sauce
+                }
+            }
         }
     }
-
 
     private fun saveSelections() {
-        if (!isAllSelectionsMade()) {
-            showIncompleteSelectionDialog()
-            return
-        }
         if (originJson.length() == 0) {
             modifyJson.put("ingredients",JSONArray())
             modifyJson.put("vegan",false)
@@ -282,21 +243,11 @@ class MyFaovrActivity : AppCompatActivity() {
         val editor = preferences.edit()
         editor.putString("userSelectData", jsonString)
         editor.apply()
-
-        finish()
     }
 
     private fun resetSelections() {
         checkBoxes.forEach{it.isChecked=false}
         radioButtons.forEach{it.isChecked=false}
-
-        binding.raSo.isChecked = true // 기본값 medium
-        binding.sokal.isChecked = true // 기본값 medium
-        binding.m30M60.isChecked = true // 기본값 medium
-
-        binding.raVe.isChecked = false
-        binding.raMe.isChecked = false
-        binding.soup.isChecked = false
 
         // SharedPreference 삭제
         val preferences = getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
