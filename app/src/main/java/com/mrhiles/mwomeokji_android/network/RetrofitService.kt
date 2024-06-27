@@ -24,8 +24,6 @@ interface RetrofitService {
     @GET("/backend/userTest.php")
     fun userCheckNickname(@Query("nickname") ChecknickName: String): Call<String>
 
-    @GET("/backend/userTest.php")
-    fun userCheckEmail(@Query("email") CheckEmail: String): Call<String>
 
     @POST("/backend/login.php")
     fun userLoginToServer(@Body userData: UserLoginData): Call<UserLoginResponse>
@@ -37,6 +35,11 @@ interface RetrofitService {
     @Multipart
     @POST("/backend/userChange.php")
     fun userChangeProfile(@PartMap dataPart: Map<String, String>, @Part filePart: MultipartBody.Part? ) : Call<UserLoginResponse>
+
+
+    @GET("/backend/userTest.php")
+    fun userCheckEmail(@Query("email") CheckEmail: String): Call<String>
+
 
 
 
