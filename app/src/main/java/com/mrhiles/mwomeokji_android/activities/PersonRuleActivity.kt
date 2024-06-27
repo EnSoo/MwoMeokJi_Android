@@ -19,10 +19,5 @@ class PersonRuleActivity : AppCompatActivity() {
 
         binding.toolbar.setNavigationOnClickListener { finish() }
 
-        binding.personRuleWebview.webViewClient = WebViewClient()
-        binding.personRuleWebview.webChromeClient = WebChromeClient()
-        binding.personRuleWebview.settings.javaScriptEnabled = true
-
-        binding.personRuleWebview.loadUrl("http://43.200.163.153/privacy/privacy.html")
     }
 }
