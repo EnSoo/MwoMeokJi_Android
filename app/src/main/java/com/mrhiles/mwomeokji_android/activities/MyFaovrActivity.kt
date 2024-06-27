@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -16,6 +17,7 @@ import com.mrhiles.mwomeokji_android.databinding.ActivityMainBinding
 import com.mrhiles.mwomeokji_android.databinding.ActivityMyFaovrBinding
 import org.json.JSONArray
 import org.json.JSONObject
+
 
 class MyFaovrActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMyFaovrBinding.inflate(layoutInflater) }
@@ -59,7 +61,6 @@ class MyFaovrActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener { finish() }
         binding.modifyBtn.setOnClickListener {
             saveSelections()
-            finish()
         }
         binding.resetBtn.setOnClickListener {
             resetSelections()
@@ -141,8 +142,46 @@ class MyFaovrActivity : AppCompatActivity() {
                 }
             }
         }
+    private fun isSpicinessSelected(): Boolean {
+        val spicinessButtons = arrayOf(binding.raNoeat1, binding.raNoeat2, binding.raSo, binding.raGood, binding.raGood2)
+        return spicinessButtons.any { it.isChecked }
+    }
+    private fun isDietTypeSelected(): Boolean {
+        val dietTypeButtons = arrayOf(binding.reMe, binding.raVe, binding.raNop)
+        return dietTypeButtons.any { it.isChecked }
+    }
+    private fun isCaloriesSelected(): Boolean {
+        val caloriesButtons = arrayOf(binding.rowkal, binding.sokal, binding.gokal)
+        return caloriesButtons.any { it.isChecked }
+    }private fun isCookingTimeSelected(): Boolean {
+        val cookingTimeButtons = arrayOf(binding.m15, binding.m15M30, binding.m30M60, binding.m60M120, binding.m120)
+        return cookingTimeButtons.any { it.isChecked }
+    }
+    private fun isDishTypeSelected(): Boolean {
+        val dishTypeCheckBoxes = arrayOf(binding.ChMain, binding.side, binding.dessert, binding.soup, binding.sauce)
+        return dishTypeCheckBoxes.any { it.isChecked }
+    }private fun isCategoriesSelected(): Boolean {
+        val categoriesCheckBoxes = arrayOf(binding.ko, binding.ch, binding.ja, binding.kita)
+        return categoriesCheckBoxes.any { it.isChecked }
+    }private fun isAllSelectionsMade(): Boolean {
+        return isSpicinessSelected() && isDietTypeSelected() && isCaloriesSelected() &&
+                isCookingTimeSelected() && isDishTypeSelected() && isCategoriesSelected()
+    }private fun showIncompleteSelectionDialog() {
+        if(!isFinishing && !isDestroyed) {
+            AlertDialog.Builder(this)
+                .setTitle("선택 오류")
+                .setMessage("모든 항목을 선택해 주세요.")
+                .setPositiveButton("확인") { dialog, _ -> dialog.dismiss() }
+                .show()
+        }
+    }
+
 
     private fun saveSelections() {
+        if (!isAllSelectionsMade()) {
+            showIncompleteSelectionDialog()
+            return
+        }
         if (originJson.length() == 0) {
             modifyJson.put("ingredients",JSONArray())
             modifyJson.put("vegan",false)
@@ -243,6 +282,8 @@ class MyFaovrActivity : AppCompatActivity() {
         val editor = preferences.edit()
         editor.putString("userSelectData", jsonString)
         editor.apply()
+
+        finish()
     }
 
     private fun resetSelections() {
